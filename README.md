@@ -1,6 +1,6 @@
 [![Build Status](https://img.shields.io/github/workflow/status/honestventures/docker-steamcmd-wine/Build%20Images.svg?logo=github)](https://github.com/honestventures/docker-steamcmd-wine/actions)
 [![CodeFactor](https://www.codefactor.io/repository/github/honestventures/docker-steamcmd-wine/badge)](https://www.codefactor.io/repository/github/honestventures/docker-steamcmd-wine)
-[![Steam Service Status](https://img.shields.io/static/v1?label=service&message=steam%20status&color=green)](https://status.steamcmd.net)
+[![Steam Service Status](https://img.shields.io/static/v1?label=service&message=steam%20status&color=blue)](https://status.steamcmd.net)
 [![Docker Pulls](https://img.shields.io/docker/pulls/honestventures/steamcmd-linux-wine.svg)](https://hub.docker.com/r/honestventures/steamcmd-linux-wine)
 [![Image Size](https://img.shields.io/docker/image-size/honestventures/steamcmd-linux-wine/latest.svg)](https://hub.docker.com/r/honestventures/steamcmd-linux-wine)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
