@@ -1,5 +1,3 @@
-######## INSTALL ########
-
 # Set the base image
 FROM ubuntu:20.04
 
@@ -30,6 +28,10 @@ RUN dpkg --add-architecture i386 \
 		nano \
 		curl \
 		wget \
+		lib32gcc1 \
+		nuget \
+		git \
+		unzip \
 	steamcmd \
 			wine-stable \
 			wine32 \
@@ -37,7 +39,7 @@ RUN dpkg --add-architecture i386 \
 			libwine \
 			libwine:i386 \
 			fonts-wine \
- && apt-get autoremove -y \
+ && apt-get autoremove --purge -y \
  && rm -rf /var/lib/apt/lists/*
 
 # Add unicode support
@@ -47,6 +49,11 @@ ENV LANGUAGE 'en_US:en'
 
 # Create symlink for executable
 RUN ln -s /usr/games/steamcmd /usr/bin/steamcmd
+
+## Make Directory for Running Game Servers with Pterodactyl Panel
+RUN mkdir -p /mnt/server/steamcmd
+RUN ln -s /usr/games/steamcmd /mnt/server/steamcmd/steamcmd.sh
+RUN chown -R root:root /mnt
 
 # Update SteamCMD and verify latest version
 RUN steamcmd +quit
