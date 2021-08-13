@@ -1,5 +1,5 @@
 [![Build Status](https://img.shields.io/github/workflow/status/honestventures/docker/Build%20Images.svg?logo=github)](https://github.com/honestventures/docker/actions)
-[![CodeFactor](https://www.codefactor.io/repository/github/honestventures/docker/badge)](https://www.codefactor.io/repository/github/honestventures/docker)
+[![CodeFactor](https://www.codefactor.io/repository/github/steamcmd/docker/badge)](https://www.codefactor.io/repository/github/honestventures/docker)
 [![Steam Service Status](https://img.shields.io/static/v1?label=service&message=status&color=blue)](https://status.steamcmd.net)
 [![Docker Pulls](https://img.shields.io/docker/pulls/honestventures/steamcmd-linux-wine.svg)](https://hub.docker.com/r/honestventures/steamcmd-linux-wine)
 [![Image Size](https://img.shields.io/docker/image-size/honestventures/steamcmd-linux-wine/latest.svg)](https://hub.docker.com/r/honestventures/steamcmd-linux-wine)
