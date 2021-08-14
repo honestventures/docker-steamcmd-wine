@@ -53,9 +53,9 @@ ENV LANGUAGE 'en_US:en'
 RUN ln -s /usr/games/steamcmd /usr/bin/steamcmd
 
 ## Make Directory for Running Game Servers with Pterodactyl Panel
-RUN mkdir -p /mnt/server/steamcmd
-RUN ln -s /usr/games/steamcmd /mnt/server/steamcmd/steamcmd.sh
-RUN chown -R root:root /mnt
+RUN mkdir -p /mnt/server/steamcmd \
+ && ln -s /usr/games/steamcmd /mnt/server/steamcmd/steamcmd.sh \
+ && chown -R root:root /mnt
 
 # Update SteamCMD and verify latest version
 RUN steamcmd +quit
