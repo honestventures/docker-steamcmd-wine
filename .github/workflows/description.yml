@@ -1,4 +1,4 @@
-name: Update Description
+name: Update README.md Description at docker.io
 on:
   push:
     branches:
