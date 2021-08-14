@@ -20,14 +20,15 @@ RUN echo steam steam/question select "I AGREE" | debconf-set-selections \
 ARG DEBIAN_FRONTEND=noninteractive
 RUN dpkg --add-architecture i386 \
  && apt-get update -y \
+ && apt-get install -y --no-install-recommends apt-utils \
  && apt-get install -y --no-install-recommends --no-install-suggests \
 		locales \
-		libc6 \
-		libstdc++6 \
 		ca-certificates \
 		nano \
 		curl \
 		wget \
+		libc6 \
+		libstdc++6 \
 		lib32gcc1 \
 		nuget \
 		git \
