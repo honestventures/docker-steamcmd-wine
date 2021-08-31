@@ -18,7 +18,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN echo steam steam/question select "I AGREE" | debconf-set-selections \
  && echo steam steam/license note '' | debconf-set-selections
 
-# Update the repository and install SteamCMD
+# Update the repository and install SteamCMD, libs, and Wine
 ARG DEBIAN_FRONTEND=noninteractive
 RUN dpkg --add-architecture i386 \
  && apt-get update -y \
