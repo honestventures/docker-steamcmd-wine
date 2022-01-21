@@ -16,9 +16,9 @@ jobs:
       IMAGE_TAG: "ubuntu-20"
     steps:
       - uses: actions/checkout@v2
-      - uses: e1himself/goss-installation-action@v1.0.3
+      - uses: e1himself/goss-installation-action@v1.0.4
         with:
-          version: 'v0.3.14'
+          version: 'v0.3.16'
       - name: Docker Login
         run: echo ${{ secrets.DOCKER_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
       - name: Build Image
@@ -40,9 +40,9 @@ jobs:
       IMAGE_TAG: "ubuntu-18"
     steps:
       - uses: actions/checkout@v2
-      - uses: e1himself/goss-installation-action@v1.0.3
+      - uses: e1himself/goss-installation-action@v1.0.4
         with:
-          version: 'v0.3.14'
+          version: 'v0.3.16'
       - name: Docker Login
         run: echo ${{ secrets.DOCKER_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
       - name: Build Image
