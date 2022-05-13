@@ -16,7 +16,7 @@ have a look at [steamcmd.net](https://www.steamcmd.net).
 
 ## Tags
 
-*   [`ubuntu-22`](dockerfiles/ubuntu-22/Dockerfile)
+*   [`ubuntu-21`](dockerfiles/ubuntu-21/Dockerfile)
 *   [`ubuntu-20`, `ubuntu`, `latest`](dockerfiles/ubuntu-20/Dockerfile)
 *   [`ubuntu-18`](dockerfiles/ubuntu-18/Dockerfile)
 <!---
