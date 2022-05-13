@@ -10,10 +10,10 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
-  build-ubuntu-21:
-    runs-on: ubuntu-21.04
+  build-ubuntu-22:
+    runs-on: ubuntu-22.04
     env:
-      IMAGE_TAG: "ubuntu-21"
+      IMAGE_TAG: "ubuntu-22"
     steps:
       - uses: actions/checkout@v2
       - uses: e1himself/goss-installation-action@v1.0.4
