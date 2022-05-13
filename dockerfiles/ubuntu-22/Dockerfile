@@ -35,11 +35,11 @@ RUN dpkg --add-architecture i386 \
 		nuget \
 		git \
 		unzip \
-		bzip2 \
-		libarchive13 \
-		tar \
-		xz-utils \
-		p7zip-full \
+#		bzip2 \
+#		libarchive13 \
+#		tar \
+#		xz-utils \
+#		p7zip-full \
 #		lib32gcc-s1 \
 	steamcmd \
 			wine-stable \
