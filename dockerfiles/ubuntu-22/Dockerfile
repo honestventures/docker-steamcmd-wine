@@ -3,6 +3,9 @@
 # Set the base image
 FROM ubuntu:22.04
 
+# Prevent tzdata apt-get installation from asking for input.
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Set Label
 LABEL maintainer="repo@honestventures.biz"
 
@@ -19,7 +22,7 @@ RUN echo steam steam/question select "I AGREE" | debconf-set-selections \
  && echo steam steam/license note '' | debconf-set-selections
 
 # Update the repository and install SteamCMD, libs, and Wine
-ARG DEBIAN_FRONTEND=noninteractive
+#ARG DEBIAN_FRONTEND=noninteractive
 RUN dpkg --add-architecture i386 \
  && apt-get update -y \
  && apt-get install -y --no-install-recommends apt-utils \
