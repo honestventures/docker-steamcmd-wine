@@ -24,10 +24,6 @@ RUN echo steam steam/question select "I AGREE" | debconf-set-selections \
 # Update the repository and install SteamCMD, libs, and Wine
 #ARG DEBIAN_FRONTEND=noninteractive
 RUN dpkg --add-architecture i386 \
- && apt-get update -y \
- && apt-get upgrade -y \
- && apt-get install -y tzdata \
- && apt-get install sudo -y \
  && apt-get install -y --no-install-recommends apt-utils \
  && apt-get install -y --no-install-recommends --no-install-suggests \
 		locales \
@@ -37,7 +33,9 @@ RUN dpkg --add-architecture i386 \
 		wget \
 		libc6 \
 		libstdc++6 \
-		lib32gcc1 \
+		gcc-12-base \
+		libc6-i386 \
+		lib32gcc-s1 \
 		nuget \
 		git \
 		unzip \
@@ -54,6 +52,10 @@ RUN dpkg --add-architecture i386 \
 			libwine \
 			libwine:i386 \
 			fonts-wine \
+ && apt-get update -y \
+ && apt-get upgrade -y \
+ && apt-get install -y tzdata \
+ && apt-get install sudo -y \
  && apt-get autoremove --purge -y \
  && apt-get autoclean -y \
  && rm -rf /var/lib/apt/lists/*
