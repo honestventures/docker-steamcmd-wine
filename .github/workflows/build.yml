@@ -161,3 +161,9 @@ jobs:
 #        if: ${{ github.ref == 'refs/heads/master' }}
 #        run: docker push honestventures/steamcmd-linux-wine:$IMAGE_TAG
 
+## Cleanup 
+      - name: delete old workflows
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          retain_days: 5
+          keep_minimum_runs: 4
