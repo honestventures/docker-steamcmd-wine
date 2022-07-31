@@ -15,7 +15,7 @@ jobs:
     env:
       IMAGE_TAG: "ubuntu-22"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: e1himself/goss-installation-action@v1.0.4
         with:
           version: 'v0.3.16'
@@ -26,7 +26,7 @@ jobs:
 #        working-directory: dockerfiles/${{ env.IMAGE_TAG }}
       - name: Setup Docker Build
         id: buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
       - name: Cache Docker Layers
         uses: actions/cache@v2
         with:
