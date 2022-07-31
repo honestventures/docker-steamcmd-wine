@@ -23,7 +23,7 @@ RUN echo steam steam/question select "I AGREE" | debconf-set-selections \
 
 # Update the repository and install SteamCMD, libs, and Wine
 #ARG DEBIAN_FRONTEND=noninteractive
-RUN dpkg --add-architecture i386 \
+RUN dpkg --add-architecture i386 --no-install-recommends \
  && apt-get update -y \
  && apt-get upgrade -y \
  && apt-get install -y tzdata \
