@@ -12,7 +12,6 @@ on:
 jobs:
   build-ubuntu-22:
     runs-on: ubuntu-22.04
-#    runs-on: ubuntu-latest
     env:
       IMAGE_TAG: "ubuntu-22"
     steps:
@@ -27,9 +26,9 @@ jobs:
         run: docker build -t honestventures/steamcmd-linux-wine:$IMAGE_TAG .
         working-directory: dockerfiles/${{ env.IMAGE_TAG }}
 # Setup Docker Buildx
-      - name: Set up QEMU
-        id: qemu
-        uses: docker/setup-qemu-action@v2
+#      - name: Set up QEMU
+#        id: qemu
+#        uses: docker/setup-qemu-action@v2
 
       - name: Set up Docker Buildx
         id: buildx
@@ -44,7 +43,7 @@ jobs:
             ${{ runner.os }}-buildx-
       - name: Test Image
         run: dgoss run honestventures/steamcmd-linux-wine:$IMAGE_TAG --entrypoint=""
-      # master
+# Tag and Push
       - name: Tag Image
         if: ${{ github.ref == 'refs/heads/master' }}
         run: for TAG in ubuntu latest; do docker tag honestventures/steamcmd-linux-wine:$IMAGE_TAG honestventures/steamcmd-linux-wine:${TAG}; done
