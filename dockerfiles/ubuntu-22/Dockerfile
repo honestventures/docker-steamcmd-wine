@@ -34,7 +34,7 @@ RUN dpkg --add-architecture i386 \
 		wget \
 		libc6 \
 		libstdc++6 \
-		lib32gcc1 \
+		lib32gcc-s1 \
 		nuget \
 		git \
 		unzip \
@@ -51,7 +51,11 @@ RUN dpkg --add-architecture i386 \
 			libwine \
 			libwine:i386 \
 			fonts-wine \
+ && apt-get upgrade -y \
+ && apt-get install -y tzdata \
+ && apt-get install sudo -y \
  && apt-get autoremove --purge -y \
+ && apt-get autoclean -y \
  && rm -rf /var/lib/apt/lists/*
 
 # Add unicode support

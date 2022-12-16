@@ -15,18 +15,25 @@ jobs:
     env:
       IMAGE_TAG: "ubuntu-22"
     steps:
-      - uses: actions/checkout@v2
+      - name: Check Out Repo
+        uses: actions/checkout@v3
       - uses: e1himself/goss-installation-action@v1.0.4
         with:
           version: 'v0.3.16'
       - name: Docker Login
         run: echo ${{ secrets.DOCKER_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-#      - name: Build Image
-#        run: docker build -t honestventures/steamcmd-linux-wine:$IMAGE_TAG .
-#        working-directory: dockerfiles/${{ env.IMAGE_TAG }}
-      - name: Setup Docker Build
+      - name: Build Image
+        run: docker build -t honestventures/steamcmd-linux-wine:$IMAGE_TAG .
+        working-directory: dockerfiles/${{ env.IMAGE_TAG }}
+# Setup Docker Buildx
+#      - name: Set up QEMU
+#        id: qemu
+#        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
+
       - name: Cache Docker Layers
         uses: actions/cache@v2
         with:
@@ -36,7 +43,7 @@ jobs:
             ${{ runner.os }}-buildx-
       - name: Test Image
         run: dgoss run honestventures/steamcmd-linux-wine:$IMAGE_TAG --entrypoint=""
-      # master
+# Tag and Push
       - name: Tag Image
         if: ${{ github.ref == 'refs/heads/master' }}
         run: for TAG in ubuntu latest; do docker tag honestventures/steamcmd-linux-wine:$IMAGE_TAG honestventures/steamcmd-linux-wine:${TAG}; done
@@ -161,3 +168,12 @@ jobs:
 #        if: ${{ github.ref == 'refs/heads/master' }}
 #        run: docker push honestventures/steamcmd-linux-wine:$IMAGE_TAG
 
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+
+## Cleanup GitHub Actions
+      - name: delete old workflows
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          retain_days: 5
+          keep_minimum_runs: 4
