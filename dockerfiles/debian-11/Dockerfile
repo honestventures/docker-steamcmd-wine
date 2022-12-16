@@ -3,12 +3,22 @@
 ############################################################
 FROM debian:bullseye-slim as build_stage
 
-LABEL maintainer="walentinlamonos@gmail.com"
-ARG PUID=1000
+LABEL maintainer="repo@honestventures.biz"
+#ARG PUID=1000
 
-ENV USER steam
-ENV HOMEDIR "/home/${USER}"
+# Set environment variables
+ENV USER root
+ENV HOME /root
+#ENV USER steam
+#ENV HOMEDIR "/home/${USER}"
+# Set working directory
+WORKDIR $HOME
 ENV STEAMCMDDIR "${HOMEDIR}/steamcmd"
+
+# Insert Steam prompt answers
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN echo steam steam/question select "I AGREE" | debconf-set-selections \
+ && echo steam steam/license note '' | debconf-set-selections
 
 RUN set -x \
 	# Install, update & upgrade packages
@@ -22,8 +32,8 @@ RUN set -x \
 		locales=2.31-13+deb11u4 \
 	&& sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
 	&& dpkg-reconfigure --frontend=noninteractive locales \
-	# Create unprivileged user
-	&& useradd -u "${PUID}" -m "${USER}" \
+#	# Create unprivileged user
+#	&& useradd -u "${PUID}" -m "${USER}" \
 	# Download SteamCMD, execute as user
 	&& su "${USER}" -c \
 		"mkdir -p \"${STEAMCMDDIR}\" \
@@ -39,9 +49,29 @@ RUN set -x \
 	&& apt-get remove --purge --auto-remove -y \
 	&& rm -rf /var/lib/apt/lists/*
 
+# Add unicode support
+RUN locale-gen en_US.UTF-8
+ENV LANG 'en_US.UTF-8'
+ENV LANGUAGE 'en_US:en'
+
+# Create symlink for executable
+RUN ln -s /usr/games/steamcmd /usr/bin/steamcmd
+
+## Make Directory for Running Game Servers with Pterodactyl Panel
+RUN mkdir -p /mnt/server/steamcmd \
+ && ln -s /usr/games/steamcmd /mnt/server/steamcmd/steamcmd.sh \
+ && chown -R root:root /mnt
+
+# Update SteamCMD and verify latest version
+RUN steamcmd +quit
+
+# Set default command
+ENTRYPOINT ["steamcmd"]
+CMD ["+help", "+quit"]
+
 FROM build_stage AS bullseye-root
 WORKDIR ${STEAMCMDDIR}
 
 FROM bullseye-root AS bullseye
 # Switch to user
-USER ${USER}
+#USER ${USER}
