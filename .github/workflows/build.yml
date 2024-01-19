@@ -37,18 +37,18 @@ jobs:
 #      tags: ubuntu-xenial
 
   ## linux / debian
-#  debian-12:
-#    uses: ./.github/workflows/_build-linux.yml
-#    secrets: inherit
-#    with:
-#      name: debian-12
-#      tags: debian-bookworm debian
-#  debian-11:
-#    uses: ./.github/workflows/_build-linux.yml
-#    secrets: inherit
-#    with:
-#      name: debian-11
-#      tags: debian-bullseye
+  debian-12:
+    uses: ./.github/workflows/_build-linux.yml
+    secrets: inherit
+    with:
+      name: debian-12
+      tags: debian-bookworm debian-12 debian
+  debian-11:
+    uses: ./.github/workflows/_build-linux.yml
+    secrets: inherit
+    with:
+      name: debian-11
+      tags: debian-bullseye debian-11
 #  debian-10:
 #    uses: ./.github/workflows/_build-linux.yml
 #    secrets: inherit
