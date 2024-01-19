@@ -115,3 +115,10 @@ jobs:
 #    secrets: inherit
 #    with:
 #      name: windows-core-1809
+
+## Cleanup GitHub Actions
+      - name: delete old workflows
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          retain_days: 5
+          keep_minimum_runs: 4
