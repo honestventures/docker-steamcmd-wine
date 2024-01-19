@@ -41,7 +41,8 @@ RUN dpkg --add-architecture i386 \
 		git \
 		unzip \
 	steamcmd \
-			wine-stable \
+#			wine-stable \
+			wine \
 			wine32 \
 			wine64 \
 			libwine \
