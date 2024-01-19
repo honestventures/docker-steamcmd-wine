@@ -1,0 +1,38 @@
+name: Build Windows Image Template
+on:
+  workflow_call:
+    inputs:
+      name:
+        type: string
+        required: true
+        description: "Name of main tag and workflow file."
+      tags:
+        type: string
+        required: false
+        description: "Extra tags to use besides main tag."
+
+jobs:
+  build:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v3
+      - name: Docker Login
+        run: echo ${{ secrets.DOCKER_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+      - name: Build Image
+        run: docker build -t honestventures/steamcmd-linux-wine:${{ inputs.name }} .
+        working-directory: dockerfiles/${{ inputs.name }}
+      - name: Test Image
+        run: docker run honestventures/steamcmd-linux-wine:${{ inputs.name }} +quit
+
+      # master
+      - name: Tag Image
+        run: >
+          $tags = "${{ inputs.tags }}";
+          foreach ($tag in $tags.split(","))
+          {
+            docker tag honestventures/steamcmd-linux-wine:${{ inputs.name }} honestventures/steamcmd-linux-wine:$tag
+          }
+        if: ${{ (github.ref == 'refs/heads/master') && (inputs.tags != '') }}
+      - name: Push Image
+        run: docker push honestventures/steamcmd-linux-wine --all-tags
+        if: ${{ github.ref == 'refs/heads/master' }}
