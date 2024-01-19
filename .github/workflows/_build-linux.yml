@@ -37,5 +37,5 @@ jobs:
           done
         if: ${{ (github.ref == 'refs/heads/master') && (inputs.tags != '') }}
       - name: Push Image
-        run: docker push steamcmd/steamcmd --all-tags
+        run: docker push honestventures/steamcmd-linux-wine --all-tags
         if: ${{ github.ref == 'refs/heads/master' }}
