@@ -2,23 +2,28 @@
 # Dockerfile that contains SteamCMD
 ############################################################
 FROM debian:bullseye-slim as build_stage
+#FROM debian:11-slim
 
 LABEL maintainer="repo@honestventures.biz"
 ARG PUID=1000
 
 # Set environment variables
-#ENV USER root
-#ENV HOME /root
-ENV USER steam
-ENV HOMEDIR "/home/${USER}"
+ENV USER root
+ENV HOME /root
+#ENV USER steam
+#ENV HOMEDIR "/home/${USER}"
 # Set working directory
 WORKDIR $HOME
-ENV STEAMCMDDIR "${HOMEDIR}/steamcmd"
+#ENV STEAMCMDDIR "${HOMEDIR}/steamcmd"
 
 # Insert Steam prompt answers
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN echo steam steam/question select "I AGREE" | debconf-set-selections \
  && echo steam steam/license note '' | debconf-set-selections
+
+# Update the repository install 32-bit support
+COPY sources.list /etc/apt/sources.list
+RUN dpkg --add-architecture i386
 
 RUN set -x \
 	# Install, update & upgrade packages
@@ -68,6 +73,13 @@ RUN mkdir -p /mnt/server/steamcmd \
 
 # Update SteamCMD and verify latest version
 RUN steamcmd +quit
+
+# Fix missing directories and libraries
+RUN mkdir -p $HOME/.steam \
+ && ln -s $HOME/.local/share/Steam/steamcmd/linux32 $HOME/.steam/sdk32 \
+ && ln -s $HOME/.local/share/Steam/steamcmd/linux64 $HOME/.steam/sdk64 \
+ && ln -s $HOME/.steam/sdk32/steamclient.so $HOME/.steam/sdk32/steamservice.so \
+ && ln -s $HOME/.steam/sdk64/steamclient.so $HOME/.steam/sdk64/steamservice.so
 
 # Set default command
 ENTRYPOINT ["steamcmd"]
