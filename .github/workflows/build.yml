@@ -16,19 +16,19 @@ jobs:
     secrets: inherit
     with:
       name: ubuntu-22
-      tags: ubuntu-jammy ubuntu latest
+      tags: ubuntu-jammy ubuntu-22 ubuntu latest
   ubuntu-20:
     uses: ./.github/workflows/_build-linux.yml
     secrets: inherit
     with:
       name: ubuntu-20
-      tags: ubuntu-focal
+      tags: ubuntu-focal ubuntu-20
   ubuntu-18:
     uses: ./.github/workflows/_build-linux.yml
     secrets: inherit
     with:
       name: ubuntu-18
-      tags: ubuntu-bionic
+      tags: ubuntu-bionic ubuntu-18
 #  ubuntu-16:
 #    uses: ./.github/workflows/_build-linux.yml
 #    secrets: inherit
@@ -43,12 +43,12 @@ jobs:
 #    with:
 #      name: debian-12
 #      tags: debian-bookworm debian
-  debian-11:
-    uses: ./.github/workflows/_build-linux.yml
-    secrets: inherit
-    with:
-      name: debian-11
-      tags: debian-bullseye
+#  debian-11:
+#    uses: ./.github/workflows/_build-linux.yml
+#    secrets: inherit
+#    with:
+#      name: debian-11
+#      tags: debian-bullseye
 #  debian-10:
 #    uses: ./.github/workflows/_build-linux.yml
 #    secrets: inherit
