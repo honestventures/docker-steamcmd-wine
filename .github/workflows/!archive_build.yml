@@ -1,4 +1,4 @@
-name: Docker Build and Publish Images
+name: ! Archive Docker Build and Publish Images
 on:
   push:
     branches:
